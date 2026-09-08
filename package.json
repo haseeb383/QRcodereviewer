@@ -9,7 +9,7 @@
     "start": "vercel dev",
     "generate-qr": "node src/generate-qr.js",
     "init-db": "node src/database.js",
-    "migrate": "node scripts/migrate-to-kv.js",
+    "migrate": "node --env-file=.env.local scripts/migrate-to-kv.js",
     "deploy": "vercel --prod"
   },
   "dependencies": {
@@ -17,6 +17,6 @@
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
-    "vercel": "^34.0.0"
+    "vercel": "^54.17.3"
   }
 }
