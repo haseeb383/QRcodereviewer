@@ -1,0 +1,16 @@
+{
+  "name": "smart-review-cards",
+  "version": "1.0.0",
+  "description": "Pre-Printed Smart Review Card System",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "generate-qr": "node src/generate-qr.js",
+    "init-db": "node src/database.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "qrcode": "^1.5.3"
+  }
+}
