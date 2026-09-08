@@ -1,16 +1,22 @@
 {
-  "name": "smart-review-cards",
+  "name": "qr-reviewer",
   "version": "1.0.0",
   "description": "Pre-Printed Smart Review Card System",
-  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node src/server.js",
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "vercel dev",
     "generate-qr": "node src/generate-qr.js",
-    "init-db": "node src/database.js"
+    "init-db": "node src/database.js",
+    "migrate": "node scripts/migrate-to-kv.js",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "qrcode": "^1.5.3"
+    "@vercel/kv": "^1.0.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "vercel": "^34.0.0"
   }
 }

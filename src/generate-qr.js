@@ -1,8 +1,12 @@
-const QRCode = require('qrcode');
-const fs = require('fs');
-const path = require('path');
+import QRCode from 'qrcode';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const BASE_URL = process.env.BASE_URL || 'https://qr-reviewer.vercel.app';
 const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'qr');
 const START = parseInt(process.argv[2]) || 1;
 const END = parseInt(process.argv[3]) || 100;
