@@ -1,4 +1,4 @@
-import { kvGet, kvSet } from '../../lib/kv.js';
+import { kv } from '@vercel/kv';
 
 function checkAuth(req) {
   const auth = req.headers.authorization;
@@ -15,13 +15,13 @@ export default async function handler(req, res) {
   const key = `card:${cardId}`;
   
   if (req.method === 'GET') {
-    const card = await kvGet(key);
+    const card = await kv.get(key);
     if (!card) return res.status(404).json({ error: 'Card not found' });
     return res.json(card);
   }
   
   if (req.method === 'PUT') {
-    const card = await kvGet(key);
+    const card = await kv.get(key);
     if (!card) return res.status(404).json({ error: 'Card not found' });
     
     const { destination_url, client_name, status } = req.body;
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       updated_at: new Date().toISOString()
     };
     
-    await kvSet(key, updated);
+    await kv.set(key, updated);
     return res.json(updated);
   }
   

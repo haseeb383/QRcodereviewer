@@ -1,4 +1,4 @@
-import { kvGet } from '../../lib/kv.js';
+import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
   const { cardId } = req.query;
@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     return res.status(400).send('Card ID required');
   }
   
-  const card = await kvGet(`card:${cardId}`);
+  const card = await kv.get(`card:${cardId}`);
   
   if (!card) {
     return res.status(404).send(`

@@ -1,4 +1,4 @@
-import { kvGet, kvKeys } from '../../lib/kv.js';
+import { kv } from '@vercel/kv';
 
 function checkAuth(req) {
   const auth = req.headers.authorization;
@@ -12,11 +12,11 @@ export default async function handler(req, res) {
   }
   
   if (req.method === 'GET') {
-    const keys = await kvKeys('card:*');
+    const keys = await kv.keys('card:*');
     const cards = [];
     
     for (const key of keys) {
-      const card = await kvGet(key);
+      const card = await kv.get(key);
       if (card) cards.push(card);
     }
     
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     for (let i = startNum; i <= endNum; i++) {
       const id = String(i).padStart(3, '0');
       const key = `card:${id}`;
-      const existing = await kvGet(key);
+      const existing = await kv.get(key);
       if (!existing) {
         const card = {
           card_id: id,
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         };
-        await kvSet(key, card);
+        await kv.set(key, card);
         created++;
       }
     }
@@ -53,5 +53,3 @@ export default async function handler(req, res) {
   
   return res.status(405).json({ error: 'Method not allowed' });
 }
-
-import { kvSet } from '../../lib/kv.js';

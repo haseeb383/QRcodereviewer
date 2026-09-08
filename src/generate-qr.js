@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const BASE_URL = process.env.BASE_URL || 'https://qr-reviewer.vercel.app';
+const SCAN_PATH = process.env.SCAN_PATH || '/api/scan';
 const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'qr');
 const START = parseInt(process.argv[2]) || 1;
 const END = parseInt(process.argv[3]) || 100;
@@ -16,7 +17,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 async function generateQR(cardId) {
-  const url = `${BASE_URL}/scan/${cardId}`;
+  const url = `${BASE_URL}${SCAN_PATH}/${cardId}`;
   const filePath = path.join(OUTPUT_DIR, `${cardId}.png`);
   
   await QRCode.toFile(filePath, url, {
